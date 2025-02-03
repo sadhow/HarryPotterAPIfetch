@@ -1,0 +1,219 @@
+﻿@model HarryPotterAPIfetch.Models.Character
+
+@{
+    ViewBag.Title = "Character Found!";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="~/Content/Images/harry-potter-logo.png">
+  
+    <!-- Custom Styles -->
+    <style>
+        /* General Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'MedievalSharp', cursive;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../content/images/hogwartsimg.jpg') no-repeat center center fixed;
+        }
+
+        /* Character Card */
+        .character-card {
+            width: 400px;
+            height: 600px;
+            margin: 50px auto;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+
+            .character-card:hover .card-inner {
+                transform: rotateY(180deg);
+            }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-front {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-back {
+            background: linear-gradient(45deg, #8e44ad, #3498db);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .character-image img {
+            border: 3px solid gold;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .character-info {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .magic-title {
+            font-size: 2rem;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .house-banner {
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+            .house-banner[data-house="gryffindor"] {
+                background: #ae0001;
+                color: #ffd700;
+            }
+
+            .house-banner[data-house="slytherin"] {
+                background: #2a623d;
+                color: #aaaaaa;
+            }
+
+            .house-banner[data-house="ravenclaw"] {
+                background: #0e1a40;
+                color: #946b2d;
+            }
+
+            .house-banner[data-house="hufflepuff"] {
+                background: #ecb939;
+                color: #372e29;
+            }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+        }
+
+            .stat-item i {
+                color: #ffd700;
+            }
+    </style>
+</head>
+<body>
+    <div class="character-card">
+        <div class="card-inner">
+            <div class="card-front">
+                <div class="character-image">
+                    <img src="@Model.Image" alt="@Model.Name" class="img-responsive magic-border" />
+                </div>
+                <div class="character-info">
+                    <h2 class="magic-title">@Model.Name</h2>
+                    <div class="house-banner" data-house="@Model.House?.ToLower()">
+                        <span>@(Model.House ?? "No House")</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-back">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <i class="fas fa-dragon"></i>
+                        <span>Species: @Model.Species</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-venus-mars"></i>
+                        <span>Gender: @Model.Gender</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>Born: @(Model.DateOfBirth ?? "Unknown")</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Year: @(Model.YearOfBirth?.ToString() ?? "Unknown")</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-hat-wizard"></i>
+                        <span>Wizard: @(Model.Wizard ? "Yes" : "No")</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Patronus: @(Model.Patronus ?? "Unknown")</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-theater-masks"></i>
+                        <span>Actor: @Model.Actor</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-mask"></i>
+                        <span>Alternate Actors: @(Model.AlternateActors != null ? string.Join(", ", Model.AlternateActors) : "None")</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Alive: @(Model.Alive ? "Yes" : "No")</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-magic"></i>
+                        <span>Ancestry: @Model.Ancestry</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>Eye Colour: @Model.EyeColour</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-cut"></i>
+                        <span>Hair Colour: @Model.HairColour</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <span>Wand: @(Model.Wand != null ? $"{Model.Wand.Wood}, {Model.Wand.Core}, {Model.Wand.Length}\"" : "Unknown")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

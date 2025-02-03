@@ -1,0 +1,67 @@
+﻿@model List<HarryPotterAPIfetch.Models.Character>
+@{
+    Layout = null;
+    ViewBag.Title = "Harry Potter Characters";
+}
+
+<h2>Harry Potter Characters</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Alternate Names</th>
+            <th>House</th>
+            <th>Species</th>
+            <th>Gender</th>
+            <th>House</th>
+            <th>DateOfBirth</th>
+            <th>Wizard</th>
+            <th>Ancestry</th>
+            <th>EyeColour</th>
+            <th>HairColour</th>
+            <th>Patronus</th>
+            <th>HogwartsStudent</th>
+            <th>HogwartsStaff</th>
+            <th>Actor</th>
+            @*<th>Alive</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var character in Model)
+            {
+                <tr>
+                    <td>@character.Name</td>
+
+                    <td>
+                        @if (character.AlternateNames != null && character.AlternateNames.Any())
+                        {
+                            <ul>
+                                @foreach (var name in character.AlternateNames)
+                                {
+                                    <li>@name</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {<span>NA</span>}
+                    </td>
+
+                    <td>@character.House</td>
+                    <td>@character.Species</td>
+                    <td>@character.Gender</td>
+                    <td>@character.House</td>
+                    <td>@character.DateOfBirth</td>
+                    <td>@character.Wizard</td>
+                    <td>@character.Ancestry</td>
+                    <td>@character.EyeColour</td>
+                    <td>@character.HairColour</td>
+                    <td>@character.Patronus</td>
+                    <td>@character.HogwartsStudent</td>
+                    <td>@character.HogwartsStaff</td>
+                    <td>@character.Actor</td>
+                    @*<td>@character.Alive</td>*@
+                </tr>
+            }
+    </tbody>
+</table>
