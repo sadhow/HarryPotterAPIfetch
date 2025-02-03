@@ -43,10 +43,21 @@ Follow these steps to set up and run the project locally.
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/harry-potter-mvc.git
+   git clone https://github.com/sadhow/harry-potter-mvc.git
    cd harry-potter-mvc
 
 
+### Usage
+## Search for a Character:
 
+1.Enter a character's name (e.g., "Harry Potter") in the search box.
+
+2.Click the Reveal button.
+
+3.View Character Details:
+
+The character's details will be displayed in a 3D flip card.
+
+**Hover over the card to see additional information on the back.**
 
    
